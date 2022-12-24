@@ -1,35 +1,38 @@
-<!DOCTYPE html>
+<!-- <!DOCTYPE html>
 <html lang="en">
 
     <head>
         <meta charset="UTF-8">
         <meta http-equiv="X-UA-Compatible" content="IE=edge">
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
-        <title>Document</title>
+        <title>
+            <%=title%>
+        </title>
         <link rel="stylesheet" href="./home.css" type="text/css">
 
-    </head>
+    </head> -->
 
-    <body>
-        <header>
-            <p>ToDo App</p>
-        </header>
-        <div class="action">
-            <form id="form" action="create-contact" method="POST">
-                <label for="discription">Description</label>
-                <input type="text" name="discription" placeholder="discription" required>
-                <label for="catagory">Choose a catagory</label>
-                <select name="catagory" id="catagory">
-                    <option value="work">Work</option>
-                    <option value="school">School</option>
-                    <option value="personal">Personal</option>
-                </select>
-                <label for="date">Date</label>
-                <input type="date" name="date" placeholder="Enter phone number" required>
-                <button type="submit">Add Contact</button>
-            </form>
-        </div>
-        </div>
-    </body>
+<!-- <body> -->
+<header>
+    <p>ToDo App</p>
+</header>
 
-</html>
+<div class="action">
+    <form id="form" action="create-tasks" method="POST">
+        <label for="discription">Description</label>
+        <input type="text" name="discription" placeholder="discription" required>
+        <label for="catagory">Choose a catagory</label>
+        <select name="catagory" id="catagory">
+            <option value="work">Work</option>
+            <option value="school">School</option>
+            <option value="personal">Personal</option>
+        </select>
+        <label for="date">Date</label>
+        <input type="text" name="date" placeholder="Enter Date" required>
+        <button type="submit">Add Contact</button>
+    </form>
+</div>
+</div>
+<!-- </body> -->
+
+<!-- </html> -->
