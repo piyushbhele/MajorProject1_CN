@@ -4,7 +4,7 @@ const app = express();
 const port = 8000;
 
 //connecting to database
-// const db = require('./config/mongoose');
+const db = require('./config/mongoose');
 // const Tasks = require('./models/tasks');
 
 //express layouts
