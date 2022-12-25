@@ -42,3 +42,28 @@ module.exports.deleteTask = function (req, res) {
     })
     return res.redirect('/');
 };
+
+module.exports.deleteCheckbox = function (req, res) {
+    let targetTask = req.body;
+    console.log('Hello there', targetTask);
+
+    let obj = [];
+    for (itr in targetTask) {
+        const { ObjectId } = require('mongodb');
+        const _id = ObjectId(itr);
+        obj.push(_id);
+    }
+    console.log(obj);
+
+    for (itr of obj) {
+        Task.findByIdAndDelete(itr, function (err) {
+            if (err) {
+                console.log('Error occured ', err.message);
+                return;
+            }
+        });
+    }
+
+    return resp.redirect('back');
+
+}

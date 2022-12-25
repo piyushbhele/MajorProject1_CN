@@ -1,51 +1,71 @@
 <body>
     <header>
-        <p>ToDo App</p>
+        <p class="h1 text-center position-sticky mt-3 mb-4 pb-3 text-primary">
+            <i class="fas fa-check-square me-1"></i>
+            <u>My To Do's</u>
+        </p>
     </header>
 
-    <div id="task-list-container">
+    <div class="container mt-0 bg-gradient bg-primary border border-2 rounded-4 text-center" style="opacity: .75;">
+        <form id="form" action="create-tasks" method="POST">
+            <div class="col mt-2">
+                <label for="discription" class="fs-4">Description</label><br>
+                <input class="mt-2 input-group-text d-inline" type="text" name="discription"
+                    placeholder="Type a task ..." required>
+            </div>
+            <div class="row row-cols-2">
+                <div class="col">
+                    <label for="catagory" class="fs-4">Choose a catagory</label><br>
+                    <select class="form-select d-inline mt-2" name="catagory" id="catagory"
+                        aria-label="Default select example">
+                        <option selected>Select</option>
+                        <option value="Work">Work</option>
+                        <option value="School">School</option>
+                        <option value="Personal">Personal</option>
+                    </select>
+                </div>
+                <div class="col">
+                    <label for="date" class="fs-4">Due Date</label><br>
+                    <input class="mt-2 input-group-text d-inline" type="date" name="date" placeholder="Enter Date"
+                        required>
+                </div>
 
-        <ul>
+            </div>
+            <div class="col mb-4 mt-2">
+                <button class="border btn btn-Success" type="submit" value="Submit">Add Task</button>
+            </div>
+        </form>
+    </div>
+
+    <div>
+        <ul class="list-group mt-5 container bg-secondary">
             <% for (let i of tasks_list) {%>
-                <li class="contact">
-                    <!-- <i class="fa-solid fa-square-poll-horizontal"></i> -->
-                    <div class="details">
+                <li
+                    class="list-group-item border-info bg-body-secondary d-flex gap-0 justify-content-evenly align-items-start">
+                    <input class=" form-check-input me-1 border-secondary" type="checkbox" value="" id="<%=i._id%>">
 
-                        <p>
+                    <div class="ms-2 me-auto">
+                        <div class="fw-bold">
                             <%=i.discription%>
-                        </p>
-                        <p>
+                        </div>
+                        <small>
                             <%= i.date%>
-                        </p>
-                        <p>
+                        </small>
+                    </div>
+                    <div class="me-3 mt-2">
+                        <span class="badge bg-primary rounded-pill">
                             <%= i.catagory%>
-                        </p>
+                        </span>
                     </div>
-
-                    <div class="delete-button">
-
-                        <a href="/delete-task/?id=<%=i._id%>">
-                            <i class="fa-regular fa-trash-can"></i>
-                        </a>
+                    <div class="mt-2">
+                        <span>
+                            <a href="/delete-task/?id=<%=i._id%>">
+                                <i class="fa-regular fa-trash-can"></i>
+                            </a>
+                        </span>
                     </div>
-
                 </li>
                 <%}%>
         </ul>
-    </div>
-    <div class="action">
-        <form id="form" action="create-tasks" method="POST">
-            <label for="discription">Description</label>
-            <input type="text" name="discription" placeholder="discription" required>
-            <label for="catagory">Choose a catagory</label>
-            <select name="catagory" id="catagory">
-                <option value="work">Work</option>
-                <option value="school">School</option>
-                <option value="personal">Personal</option>
-            </select>
-            <label for="date">Date</label>
-            <input type="date" name="date" placeholder="Enter Date" required>
-            <button type="submit">Add Contact</button>
-        </form>
     </div>
 </body>

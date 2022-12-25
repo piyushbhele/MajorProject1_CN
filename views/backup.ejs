@@ -1,0 +1,56 @@
+<body>
+    <header>
+        <p class="h1 text-center mt-3 mb-4 pb-3 text-primary">
+            <i class="fas fa-check-square me-1"></i>
+            <u>My Todo's</u>
+        </p>
+    </header>
+
+    <div class="action">
+        <form id="form" action="create-tasks" method="POST">
+            <label for="discription">Description</label>
+            <input type="text" name="discription" placeholder="discription" required>
+            <label for="catagory">Choose a catagory</label>
+            <select name="catagory" id="catagory">
+                <option value="work">Work</option>
+                <option value="school">School</option>
+                <option value="personal">Personal</option>
+            </select>
+            <label for="date">Date</label>
+            <input type="date" name="date" placeholder="Enter Date" required>
+            <button type="submit">Add Task</button>
+        </form>
+    </div>
+
+    <div id="task-list-container">
+
+        <ul>
+            <% for (let i of tasks_list) {%>
+                <li class="contact">
+                    <!-- <i class="fa-solid fa-square-poll-horizontal"></i> -->
+                    <div class="details">
+
+                        <p>
+                            <%=i.discription%>
+                        </p>
+                        <p>
+                            <%= i.date%>
+                        </p>
+                        <p>
+                            <%= i.catagory%>
+                        </p>
+                    </div>
+
+                    <div class="delete-button">
+
+                        <a href="/delete-task/?id=<%=i._id%>">
+                            <i class="fa-regular fa-trash-can"></i>
+                        </a>
+                    </div>
+
+                </li>
+                <%}%>
+        </ul>
+    </div>
+
+</body>
