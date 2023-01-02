@@ -3,6 +3,9 @@ const express = require('express');
 const app = express();
 const port = 8000;
 
+//set up cookie
+const cookieParser = require('cookie-parser');
+
 //conncting to database
 const db = require('./config/mongoose');
 
@@ -14,8 +17,13 @@ app.use(expressLayouts);
 app.set('layout extractStyles', true);
 app.set('layout extractScripts', true);
 
-//use sattic files
+//Read through post requests
 app.use(express.urlencoded());
+
+//use cookie parser
+app.use(cookieParser());
+
+//use sattic files
 app.use(express.static('./assets'));
 
 //use express router
