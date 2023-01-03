@@ -1,4 +1,5 @@
 //import model
+const { findByIdAndRemove } = require('../models/user');
 const User = require('../models/user');
 const { use } = require('../routes/users');
 
@@ -92,4 +93,21 @@ module.exports.createSession = function (req, res) {
         }
     })
 
+}
+
+
+//handle the Sign Out from page
+module.exports.signOut = function (req, res) {
+    console.log(req.cookies.user_id);
+    res.clearCookie('user_id');
+    return res.redirect('/sign-in');
+    // if (req.session) {
+    //     req.session.destroy(function (err) {
+    //         if (err) {
+    //             return next(err);
+    //         } else {
+    //             return res.redirect('/sign-in');
+    //         }
+    //     });
+    // }
 }
