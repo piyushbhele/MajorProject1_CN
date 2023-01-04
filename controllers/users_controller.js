@@ -50,6 +50,9 @@ module.exports.create = function (req, res) {
     })
 }
 
+//create session
+//npm install passport
+//npm install passport-local
 module.exports.createSession = function (req, res) {
-
+    return res.redirect('/profile');
 }
