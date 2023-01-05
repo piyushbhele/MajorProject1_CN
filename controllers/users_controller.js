@@ -9,8 +9,11 @@ module.exports.profile = function (req, res) {
 
 //render the sign up page
 module.exports.signUp = function (req, res) {
-    console.log(req.cookies);
-    res.cookie('user_id', 25);
+
+    if (req.isAuthenticated()) {
+        return res.redirect('/profile');
+    }
+
     return res.render('user_sign_up', {
         title: 'codeial | Sign Up'
     })
@@ -18,6 +21,10 @@ module.exports.signUp = function (req, res) {
 
 //render the sign in page
 module.exports.signIn = function (req, res) {
+    if (req.isAuthenticated()) {
+        return res.redirect('/profile');
+    }
+
     return res.render('user_sign_in', {
         title: 'codeial | Sign In'
     })
@@ -50,9 +57,21 @@ module.exports.create = function (req, res) {
     })
 }
 
+
+
 //create session
 //npm install passport
 //npm install passport-local
 module.exports.createSession = function (req, res) {
     return res.redirect('/profile');
+}
+
+module.exports.destroySession = function (req, res) {
+    req.logout(function (err) {
+        if (err) {
+            console.log(err);
+        }
+        // req.flash('success', "You have Logged out successfully");
+        return res.redirect('/');
+    });
 }
