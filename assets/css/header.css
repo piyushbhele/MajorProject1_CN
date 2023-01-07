@@ -1,0 +1,6 @@
+body {
+  margin: 0; }
+  body header {
+    height: auto;
+    width: 100%;
+    background-color: aqua; }

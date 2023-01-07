@@ -7,6 +7,8 @@ const port = 8000;
 const cookieParser = require('cookie-parser');
 //express layouts
 const expressLayouts = require('express-ejs-layouts');
+//conncting to database
+const db = require('./config/mongoose');
 
 //Used for session cookie
 //npm install express-session
@@ -14,17 +16,23 @@ const session = require('express-session');
 const passport = require('passport');
 const passportLocal = require('./config/passport-local-strategy');
 const MongoStore = require('connect-mongo');
-
-
-//conncting to database
-const db = require('./config/mongoose');
-
+const sassMiddleware = require('node-sass-middleware');
 
 
 app.use(expressLayouts);
 //extract styles and script from sub pages into the layout
 app.set('layout extractStyles', true);
 app.set('layout extractScripts', true);
+
+app.use(sassMiddleware({
+    src: './assets/scss',
+    dest: './assets/css',
+    debug: true,
+    outputStyle: 'extended',
+    prefix: '/css'
+}));
+
+
 
 //Read through post requests
 app.use(express.urlencoded());

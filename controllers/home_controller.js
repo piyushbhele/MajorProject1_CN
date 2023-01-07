@@ -64,6 +64,6 @@ module.exports.deleteCheckbox = function (req, res) {
         });
     }
 
-    return resp.redirect('back');
+    return res.redirect('back');
 
 }
