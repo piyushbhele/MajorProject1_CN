@@ -1,4 +1,5 @@
 const Post = require('../models/posts');
+const Comment = require('../models/comments');
 
 
 
@@ -11,13 +12,24 @@ module.exports.posts = function (req, res) {
     //     });
     // })
 
+    if (!req.isAuthenticated()) {
+        return res.redirect('/sign-in');
+    }
     //pre populate the user information
-    Post.find({}).populate('user').exec(function (err, post) {
-        return res.render('posts', {
-            title: "HoUser post",
-            all_post: post
-        });
-    })
+    Post.find({})
+        .populate('user')
+        .populate({
+            path: 'comments',
+            populate: {
+                path: 'user'
+            }
+        })
+        .exec(function (err, post) {
+            return res.render('posts', {
+                title: "User post",
+                post: post
+            });
+        })
 
 };
 

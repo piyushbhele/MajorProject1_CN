@@ -1,7 +1,5 @@
 body {
   background-color: #cbccc3; }
-  body #layout-main {
-    height: 90%; }
   body .form-select {
     width: 30%; }
   body .input-group-text,
