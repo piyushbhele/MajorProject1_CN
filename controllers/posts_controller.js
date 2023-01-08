@@ -1,5 +1,6 @@
 const Post = require('../models/posts');
 const Comment = require('../models/comments');
+const User = require('../models/user');
 
 
 
@@ -25,10 +26,15 @@ module.exports.posts = function (req, res) {
             }
         })
         .exec(function (err, post) {
-            return res.render('posts', {
-                title: "User post",
-                post: post
-            });
+
+            User.find({}, function (err, users) {
+                return res.render('posts', {
+                    title: "User post",
+                    post: post,
+                    all_users: users
+                });
+            })
+
         })
 
 };
