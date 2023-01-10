@@ -13,6 +13,7 @@ module.exports.create = function (req, res) {
                 post.save();
                 res.redirect('back');
             })
+            req.flash('success', 'comment added');
         }
     })
 }
@@ -24,6 +25,7 @@ module.exports.destroy = function (req, res) {
         if (comment.user == req.user.id) {
             let postId = comment.post;
             comment.remove();
+            req.flash('success', 'commnent deleted');
 
             Post.findByIdAndUpdate(postId, { $pull: { comments: req.params.id } }, function (err, post) {
                 return res.redirect('back');

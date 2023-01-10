@@ -69,7 +69,7 @@ module.exports.create = function (req, res) {
 //npm install passport
 //npm install passport-local
 module.exports.createSession = function (req, res) {
-    console.log(req.user.id);
+    req.flash('success', 'You are logged in successfully');
     return res.redirect(`/profile/${req.user.id}`);
 }
 
@@ -93,7 +93,7 @@ module.exports.destroySession = function (req, res) {
         if (err) {
             console.log(err);
         }
-        // req.flash('success', "You have Logged out successfully");
+        req.flash('success', "You are Logged out successfully");
         return res.redirect('/');
     });
 }
