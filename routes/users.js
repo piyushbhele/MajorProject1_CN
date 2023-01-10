@@ -14,6 +14,8 @@ router.post('/create-session', passport.authenticate(
 
 ), usersController.createSession);
 
+router.post('/update/:id', passport.checkAuthentication, usersController.update);
+
 router.get('/sign-out', usersController.destroySession);
 
 

@@ -6,7 +6,8 @@ module.exports.profile = function (req, res) {
         return res.render('profile', {
             title: 'User Profile',
             profile_user: user
-        })
+
+        });
     })
 
 }
@@ -26,6 +27,7 @@ module.exports.signUp = function (req, res) {
 //render the sign in page
 module.exports.signIn = function (req, res) {
     if (req.isAuthenticated()) {
+        const id = req.user.id;
         return res.redirect('/profile');
     }
 
@@ -67,7 +69,23 @@ module.exports.create = function (req, res) {
 //npm install passport
 //npm install passport-local
 module.exports.createSession = function (req, res) {
-    return res.redirect('/profile');
+    console.log(req.user.id);
+    return res.redirect(`/profile/${req.user.id}`);
+}
+
+module.exports.update = function (req, res) {
+    if (req.user.id == req.params.id) {
+        console.log(req.body.name);
+        console.log(req.body.email);
+        console.log(req.body.password);
+        User.findByIdAndUpdate(req.params.id, req.body,
+            // { name: req.body.name, email: req.body.email }
+            function (err, user) {
+                return res.redirect('back');
+            });
+    } else {
+        return res.status(401).send('unauthorised user');
+    }
 }
 
 module.exports.destroySession = function (req, res) {

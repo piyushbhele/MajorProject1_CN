@@ -5,7 +5,7 @@
 
 <section id="feed-posts">
     <h4>Posts</h4>
-    <p><a href="/profile">Back</a></p>
+    <p><a href="/profile/<%= locals.user.id %>">Back</a></p>
     <%if(locals.user){%>
         <form action="/create-post" id="new-post-form" method="POST">
             <textarea name="content" cols="30" rows="3" placeholder="Type here..." required></textarea>
@@ -27,7 +27,7 @@
     <h4>Friends</h4>
     <% for(u of all_users){%>
         <p>
-            <a href="/user/profile/<%=u.id%>">
+            <a href="/profile/<%=u._id%>">
                 <%=u.name%>
             </a>
         </p>
