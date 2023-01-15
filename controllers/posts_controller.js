@@ -57,20 +57,33 @@ module.exports.posts = async function (req, res) {
 };
 
 
-module.exports.create = function (req, res) {
-    Post.create({
-        content: req.body.content,
-        user: req.user._id
+module.exports.create = async function (req, res) {
 
-    }, function (err, post) {
-        if (err) {
-            req.flash('error', 'Post creation failed');
-            console.log('error in creating post');
-            return;
+    try {
+        let post = await Post.create({
+            content: req.body.content,
+            user: req.user._id
+
+        });
+
+        if (req.xhr) {
+            return res.status(200).json({
+                data: {
+                    post: post
+                },
+                message: "Post created!"
+            });
         }
+
         req.flash('success', 'Post Published');
         return res.redirect('back');
-    });
+
+    }
+    catch (err) {
+        req.flash('error', 'Post creation failed');
+        console.log('error in creating post');
+        return;
+    }
 }
 
 module.exports.destroy = function (req, res) {
