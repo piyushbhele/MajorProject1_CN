@@ -1,5 +1,7 @@
 //import model
 const User = require('../models/user');
+const fs = require('fs');
+const path = require('path');
 
 module.exports.profile = function (req, res) {
     User.findById(req.params.id, function (err, user) {
@@ -73,16 +75,36 @@ module.exports.createSession = function (req, res) {
     return res.redirect(`/profile/${req.user.id}`);
 }
 
-module.exports.update = function (req, res) {
+module.exports.update = async function (req, res) {
     if (req.user.id == req.params.id) {
-        console.log(req.body.name);
-        console.log(req.body.email);
-        console.log(req.body.password);
-        User.findByIdAndUpdate(req.params.id, req.body,
-            // { name: req.body.name, email: req.body.email }
-            function (err, user) {
+        try {
+            let user = await User.findById(req.params.id);
+            User.uploadedAvatar(req, res, function (err) {
+                if (err) {
+                    console.log('error', err);
+                }
+
+                user.name = req.body.name;
+                user.email = req.body.email;
+
+                if (req.file) {
+
+                    // if (user.avatar) {
+                    //     fs.unlinkSync(path.join(__dirname, '..', user.avatar));
+                    // }
+                    //this is saving the path of the uploaded file into avatar field in the user
+                    user.avatar = User.avatarPath + '/' + req.file.filename;
+
+                }
+                user.save();
                 return res.redirect('back');
-            });
+            })
+
+        } catch (err) {
+            req.flash('error', err);
+            return;
+        }
+
     } else {
         return res.status(401).send('unauthorised user');
     }

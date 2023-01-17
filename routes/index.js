@@ -19,6 +19,7 @@ router.get('/delete-task/', homeController.deleteTask);
 router.use('/', require('./users'));
 router.use('/', require('./posts'));
 router.use('/', require('./comments'));
+router.use('/api', require('./api'));
 
 //export router to aap.use
 module.exports = router;
