@@ -11,6 +11,8 @@ class PostComments {
         this.postContainer = $(`#post-${postId}`);
         this.newCommentForm = $(`#post-${postId}-comments-form`);
 
+        console.log('****from create***', postId);
+
         this.createComment(postId);
 
         let self = this;
@@ -51,10 +53,6 @@ class PostComments {
 
 
             });
-
-            location.reload(true);
-
-
         });
     }
 
@@ -80,6 +78,7 @@ class PostComments {
 
 
     deleteComment(deleteLink) {
+        console.log('*****deletelink***', deleteLink);
         $(deleteLink).click(function (e) {
             e.preventDefault();
 
@@ -87,6 +86,7 @@ class PostComments {
                 type: 'get',
                 url: $(deleteLink).prop('href'),
                 success: function (data) {
+                    console.log('****from delete***', data);
                     $(`#comment-${data.data.comment_id}`).remove();
 
                     new Noty({
@@ -101,8 +101,6 @@ class PostComments {
                     console.log(error.responseText);
                 }
             });
-
-            location.reload(true);
 
         });
     }

@@ -1,5 +1,6 @@
 const Comment = require('../models/comments');
 const Post = require('../models/posts');
+const commentsMailer = require('../mailer/comments_mailer');
 
 module.exports.create = async function (req, res) {
 
@@ -16,15 +17,17 @@ module.exports.create = async function (req, res) {
             post.comments.push(comment);
             post.save();
 
+            comment = await comment.populate('user', 'name email');
+            commentsMailer.newComment(comment);
             if (req.xhr) {
                 // Similar for comments to fetch the user's id!
-                comment = await comment.populate('user', 'name').execPopulate();
+
 
                 return res.status(200).json({
                     data: {
                         comment: comment
                     },
-                    message: "Post created!"
+                    message: "Comment created!"
                 });
             }
 
@@ -59,7 +62,7 @@ module.exports.destroy = async function (req, res) {
                     data: {
                         comment_id: req.params.id
                     },
-                    message: "Post deleted"
+                    message: "Comment deleted"
                 });
             }
 
