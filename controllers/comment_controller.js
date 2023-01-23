@@ -1,6 +1,9 @@
 const Comment = require('../models/comments');
 const Post = require('../models/posts');
 const commentsMailer = require('../mailer/comments_mailer');
+const queue = require('../config/kue');
+const commentEmailworker = require('../workers/comment_email_worker');
+const Like = require('../models/like');
 
 module.exports.create = async function (req, res) {
 
@@ -18,7 +21,16 @@ module.exports.create = async function (req, res) {
             post.save();
 
             comment = await comment.populate('user', 'name email');
-            commentsMailer.newComment(comment);
+            let job = queue.create('emails', comment).save(function (err) {
+                if (err) {
+                    console.log('Error in sending it to the queue', err);
+                    return;
+                }
+
+                console.log('job enqueued', job.id);
+
+            })
+            // commentsMailer.newComment(comment);
             if (req.xhr) {
                 // Similar for comments to fetch the user's id!
 
@@ -34,7 +46,7 @@ module.exports.create = async function (req, res) {
 
             req.flash('success', 'Comment published!');
 
-            res.redirect('back');
+            return res.redirect('back');
         }
     } catch (err) {
         req.flash('error', err);
@@ -55,6 +67,7 @@ module.exports.destroy = async function (req, res) {
             comment.remove();
 
             let post = Post.findByIdAndUpdate(postId, { $pull: { comments: req.params.id } });
+            await Like.deleteMany({ likeable: comment._id, onModel: 'Comment' });
 
             // send the comment id which was deleted back to the views
             if (req.xhr) {

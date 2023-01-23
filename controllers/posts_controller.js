@@ -1,6 +1,8 @@
 const Post = require('../models/posts');
 const Comment = require('../models/comments');
 const User = require('../models/user');
+const { deleteMany } = require('../models/tasks');
+const Like = require('../models/like');
 
 
 
@@ -20,11 +22,16 @@ module.exports.posts = async function (req, res) {
                 path: 'comments',
                 populate: {
                     path: 'user'
+                },
+                populate: {
+                    path: 'likes'
                 }
-            });
+            }).populate('likes');
+
 
 
         let users = await User.find({});
+
 
         return res.render('posts', {
             title: "User post",
@@ -97,8 +104,11 @@ module.exports.destroy = async function (req, res) {
         let post = await Post.findById(req.params.id);
 
         if (post.user == req.user.id) {
-            post.remove();
 
+            await Like.deleteMany({ likeable: post, onModel: 'Post' });
+            await Like.deleteMany({ _id: { $in: post.comments } });
+
+            post.remove();
             await Comment.deleteMany({ post: req.params.id });
 
 

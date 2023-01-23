@@ -20,6 +20,7 @@ router.use('/', require('./users'));
 router.use('/', require('./posts'));
 router.use('/', require('./comments'));
 router.use('/api', require('./api'));
+router.use('/likes', require('./likes'));
 
 //export router to aap.use
 module.exports = router;
