@@ -10,6 +10,8 @@ const expressLayouts = require('express-ejs-layouts');
 //conncting to database
 const db = require('./config/mongoose');
 
+const env = require('./config/enviornment');
+
 //Used for session cookie
 //npm install express-session
 const session = require('express-session');
@@ -21,6 +23,13 @@ const MongoStore = require('connect-mongo');
 const sassMiddleware = require('node-sass-middleware');
 const flash = require('connect-flash');
 const customMware = require('./config/middleware');
+
+
+//set up the chat server to be used with socket.io
+const chatServer = require('http').Server(app);
+const chatSockets = require('./config/chat_socket').chatSockets(chatServer);
+chatServer.listen(5000);
+console.log('chat server is running on port 5000');
 
 
 
@@ -49,7 +58,7 @@ app.use(cookieParser());
 app.use('/uploads', express.static(__dirname + '/uploads'));
 
 //use sattic files
-app.use(express.static('./assets'));
+app.use(express.static(env));
 
 
 
