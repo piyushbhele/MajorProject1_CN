@@ -1,3 +1,4 @@
+
 const fs = require('fs');
 const rfs = require('rotating-file-stream');
 const path = require('path');
@@ -6,11 +7,10 @@ const path = require('path');
 const logDirectory = path.join(__dirname, '../production_logs');
 fs.existsSync(logDirectory) || fs.mkdirSync(logDirectory);
 
-const accessLogStream = rfs.createStream('access.log', {
+const accessLogStream = rfs('access.log', {
     interval: '1d',
     path: logDirectory
 });
-
 
 const development = {
     name: 'development',
@@ -37,7 +37,7 @@ const development = {
 
     morgan: {
         mode: 'dev',
-        options: { stram: accessLogStream }
+        options: { stream: accessLogStream }
     }
 };
 
@@ -66,7 +66,7 @@ const production = {
 
     morgan: {
         mode: 'combined',
-        options: { stram: accessLogStream }
+        options: { stream: accessLogStream }
     }
 };
 

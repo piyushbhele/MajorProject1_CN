@@ -1,0 +1,10 @@
+[0mGET /posts [32m200 [0m67.550 ms - 8074[0m
+[0mGET /js/home_post_comments.js [36m304 [0m3.226 ms - -[0m
+[0mGET /css/home.css [32m200 [0m27.951 ms - -[0m
+[0mGET /css/header.css [32m200 [0m21.613 ms - -[0m
+[0mGET /css/chat_box.css [32m200 [0m25.446 ms - -[0m
+[0mGET /css/footer.css [32m200 [0m23.675 ms - -[0m
+[0mGET /css/posts.css [32m200 [0m34.814 ms - -[0m
+[0mGET /js/home_posts.js [36m304 [0m6.391 ms - -[0m
+[0mGET /js/chat_engine.js [36m304 [0m5.743 ms - -[0m
+[0mGET /js/toggle_likes.js [36m304 [0m6.814 ms - -[0m
