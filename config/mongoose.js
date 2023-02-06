@@ -1,8 +1,8 @@
 //require the library
 const mongoose = require('mongoose');
-
+const env = require('./enviornment');
 //connect to database
-mongoose.connect('mongodb://127.0.0.1/tasks_list_db');
+mongoose.connect(`mongodb://127.0.0.1/${env.db}`);
 // mongoose.connect('mongodb://0.0.0.0:27017/test');
 
 //aquire the connection to see if it is successful

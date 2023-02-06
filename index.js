@@ -11,6 +11,7 @@ const expressLayouts = require('express-ejs-layouts');
 const db = require('./config/mongoose');
 
 const env = require('./config/enviornment');
+const path = require('path');
 
 //Used for session cookie
 //npm install express-session
@@ -23,6 +24,7 @@ const MongoStore = require('connect-mongo');
 const sassMiddleware = require('node-sass-middleware');
 const flash = require('connect-flash');
 const customMware = require('./config/middleware');
+const logger = require('morgan');
 
 
 //set up the chat server to be used with socket.io
@@ -34,17 +36,25 @@ console.log('chat server is running on port 5000');
 
 
 app.use(expressLayouts);
+app.use(logger(env.morgan.mode, env.morgan.options));
+
 //extract styles and script from sub pages into the layout
 app.set('layout extractStyles', true);
 app.set('layout extractScripts', true);
 
-app.use(sassMiddleware({
-    src: './assets/scss',
-    dest: './assets/css',
-    debug: true,
-    outputStyle: 'extended',
-    prefix: '/css'
-}));
+
+if (env.name == 'development') {
+    app.use(sassMiddleware({
+        src: path.join(__dirname, env.asset_path, '/scss'),
+        // './assets/scss',
+        dest: path.join(__dirname, env.asset_path, '/css'),
+        // './assets/css',
+        debug: true,
+        outputStyle: 'extended',
+        prefix: '/css'
+    }));
+}
+
 
 
 
@@ -58,7 +68,8 @@ app.use(cookieParser());
 app.use('/uploads', express.static(__dirname + '/uploads'));
 
 //use sattic files
-app.use(express.static(env));
+app.use(express.static(env.asset_path));
+
 
 
 
@@ -70,7 +81,7 @@ app.set('views', './views');
 //Use session library to encode the key
 app.use(session({
     name: 'codeial',
-    secret: 'something',
+    secret: env.session_coockie,
     saveUninitialized: false,
     resave: false,
     cookie: {
@@ -78,7 +89,7 @@ app.use(session({
     },
     store: MongoStore.create(
         {
-            mongoUrl: 'mongodb://127.0.0.1/tasks_list_db',
+            mongoUrl: `mongodb://127.0.0.1/${env.db}`,
             autoRemove: 'disabled'
         },
         function (err) {

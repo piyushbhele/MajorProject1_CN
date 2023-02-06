@@ -1,0 +1,7 @@
+body {
+  background-color: #cbccc3; }
+  body .form-select {
+    width: 30%; }
+  body .input-group-text,
+  body .form-select {
+    background-color: #cbccc3; }
