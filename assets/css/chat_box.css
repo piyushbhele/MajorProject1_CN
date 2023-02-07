@@ -11,7 +11,7 @@
   #user-chat-box #chat-message-list {
     list-style: none;
     padding: 10px;
-    height: 70%;
+    height: 80%;
     background-color: white;
     overflow: auto; }
     #user-chat-box #chat-message-list .other-message {

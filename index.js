@@ -25,6 +25,7 @@ const sassMiddleware = require('node-sass-middleware');
 const flash = require('connect-flash');
 const customMware = require('./config/middleware');
 const logger = require('morgan');
+require('./config/view_helpers')(app);
 
 
 //set up the chat server to be used with socket.io
@@ -59,7 +60,7 @@ if (env.name == 'development') {
 
 
 //Read through post requests
-app.use(express.urlencoded());
+app.use(express.urlencoded({ extended: false }));
 
 //use cookie parser
 app.use(cookieParser());

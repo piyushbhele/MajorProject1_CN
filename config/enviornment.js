@@ -16,7 +16,7 @@ const development = {
     name: 'development',
     asset_path: './assets',
     session_coockie: 'something',
-    db: 'codeial_production',
+    db: 'codeial_development',
     smtp: {
         service: 'gmail',
         host: 'smtp.gmail.com',
@@ -43,7 +43,7 @@ const development = {
 
 const production = {
     name: 'production',
-    asset_path: process.env.ASSET_PATH,
+    asset_path: process.env.CODEIAL_ASSET_PATH,
     session_coockie: process.env.CODEIAL_SESSION_COOKIE_KEY,
     db: process.env.CODEIAL_DB,
     smtp: {
@@ -71,5 +71,5 @@ const production = {
 };
 
 //$env:ASSET_PATH="/assets"
-
+console.log(eval(process.env.CODEIAL_ENVIRONMENT) == undefined ? development : eval(process.env.CODEIAL_ENVIRONMENT))
 module.exports = eval(process.env.CODEIAL_ENVIRONMENT) == undefined ? development : eval(process.env.CODEIAL_ENVIRONMENT);
