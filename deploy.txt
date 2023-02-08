@@ -10,7 +10,7 @@ copy paste export on terminal
 *nvm install 18.13.0 --> version that is used in project -> node -v
 * download mongodb for ubuntu
 sudo service mongod start 
-mongod -
+mongod -v
 *sudo apt-get install redis-server
 redis-cli ping
 
@@ -21,6 +21,24 @@ sudo service nginx status
 
 *put the ip address of remote machine in socket chat engine and chat socket. commit and push
 *clone project on ubuntu
+
+go into project directory 
+
+*npm install --fetch packages
+*npm install gulp-cli -g 
+*set enviornment variable ~/.bash_profile
+*source ~/.bash_profile
+
+* gulp build
+* npm install -g nodemon
+
+* edit inbound rules in remote machine add http 80 and custom 8000 and 5000 for anywhere
+* npm run prod_start
+
+* pm2 start
+
+
+
 
 
 
