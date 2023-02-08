@@ -1,0 +1,30 @@
+* create virtual machine on aws 
+* download .pem file.
+* give 777 perminsions
+launch on vs code
+* ssh -i ~/Downloads/codeial-prod.pem ubuntu@52.197.61.132
+*search nvm install -> installing and updating -> use curl
+curl -o- https://raw.githubusercontent.com/nvm-sh/nvm/v0.39.3/install.sh | bash
+copy paste export on terminal
+
+*nvm install 18.13.0 --> version that is used in project -> node -v
+* download mongodb for ubuntu
+sudo service mongod start 
+mongod -
+*sudo apt-get install redis-server
+redis-cli ping
+
+*sudo apt-get install nginx
+sudo service nginx status
+
+*npm install pm2 -g ---> process manager
+
+*put the ip address of remote machine in socket chat engine and chat socket. commit and push
+*clone project on ubuntu
+
+
+
+
+
+
+

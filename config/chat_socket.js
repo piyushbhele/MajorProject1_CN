@@ -3,11 +3,11 @@ module.exports.chatSockets = function (socketServer) {
 
     let io = require('socket.io')(socketServer, {
         cors: {
-            origin: "http://18.179.22.49:8000",
+            origin: "http://52.197.61.132:8000",
             methods: ["GET", "POST"],
             transports: ['websocket', 'polling'],
             allowedHeaders: ["my-custom-header"],
-            credentials: true
+            credentials: true,
         },
         allowEIO3: true
     });
